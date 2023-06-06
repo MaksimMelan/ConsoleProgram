@@ -3,41 +3,42 @@ using System;
 using System.ComponentModel.Design;
 using System.Xml.Linq;
 
-const string CommandSetName = "1 - установите имя. ";
-const string CommandChangeConsoleColore = "2 - именение цвета консоли - зелёный. ";
-const string InitialConsoleSettings = "3 - начальные настройки консоли.";
-const string CommandSetPassword = "4 - установите пароль. ";
-const string CommandWriteName = "5 - вывести имя после ввода пароля. ";
-const string CommandEsc = "6 - выход из программы. ";
+const string CommandSetName = "1";
+const string CommandChangeConsoleColore = "2";
+const string InitialConsoleSettings = "3";
+const string CommandSetPassword = "4";
+const string CommandWriteName = "5";
+const string CommandEsc = "6";
 
-bool isExite = false;
-string exit_message = "Выход из программы! Нажмите любую клавишу!";
+bool isExit = false;
+string exitMessage = "Выход из программы! Нажмите любую клавишу!";
 string userInput;
-string nameUser = "";
-string invalidInput = "";
-string missingName = "Имя не установлено. Введите имя!";
+string nameUser = string.Empty;
+string invalidInput = string.Empty;
+string missingNameMessage = "Имя не установлено. Введите имя!";
 string nameReceived = "Имя получено! ";
-string passwordUser = "";
+string passwordUser = string.Empty;
 string passwordReceived = "Пароль получен. ";
-string missingPasswordUser = "Пароль не установлен. Устновите пароль.";
+string missingPasswordUserMessage = "Пароль не установлен. Устновите пароль.";
+string invalidPasswordMessage = "Пароль не верный.";
 string noOption = "Такого варианта нет. ";
 string programMenu = $"Выберете действие:\n" +
-        $"{CommandSetName}\n" +
-        $"{CommandChangeConsoleColore}\n" +
-        $"{InitialConsoleSettings}\n" +
-        $"{CommandSetPassword}\n" +
-        $"{CommandWriteName}\n" +
-        $"{CommandEsc}";
+        $"{CommandSetName} - установите имя. \n" +
+        $"{CommandChangeConsoleColore} - именение цвета консоли - зелёный.\n" +
+        $"{InitialConsoleSettings} - начальные настройки консоли.\n" +
+        $"{CommandSetPassword} - установите пароль.\n" +
+        $"{CommandWriteName} - вывести имя после ввода пароля.\n" +
+        $"{CommandEsc} - выход из программы. ";
     
 Console.WriteLine(programMenu);
 
-while (isExite == false)
+while (isExit == false)
 {
     userInput = Console.ReadLine();
 
     switch (userInput)
     {
-        case "1":
+        case CommandSetName:
             nameUser = Console.ReadLine();
 
             if (userInput != invalidInput)
@@ -46,51 +47,55 @@ while (isExite == false)
             }
             else
             {
-                Console.WriteLine(missingName);
+                Console.WriteLine(missingNameMessage);
             }
             break;
         
-        case "2":
+        case CommandChangeConsoleColore:
             Console.BackgroundColor = ConsoleColor.Green;
             break;
         
-        case "3":
+        case InitialConsoleSettings:
             Console.ResetColor();
             break;
         
-        case "4":
+        case CommandSetPassword:
             passwordUser = Console.ReadLine();
             Console.WriteLine(passwordReceived);
             break;
         
-        case "5":
-            if (nameUser != invalidInput)
-            {
-                userInput = Console.ReadLine();
+        case CommandWriteName:
+            if (nameUser != invalidInput)//проверка наличия имени
+            {              
+                if (passwordUser != invalidInput)//проверка на наличие пароля
+                {
+                    userInput = Console.ReadLine();// ввод пароля
 
-                if (userInput == passwordUser)
-                {
-                    Console.WriteLine(nameUser);
-                }
-                else if (userInput != invalidInput)
-                {
-                    Console.WriteLine();
+                    if (userInput == passwordUser)//пароль верен
+                    {
+                        Console.WriteLine(nameUser);// вывод пароля.
+                    }
+                    else
+                    {
+                        Console.WriteLine(invalidPasswordMessage);// неправильный пароль
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(missingPasswordUser);
+                    Console.WriteLine(missingPasswordUserMessage);
                 }
+
             }
             else
             {
-                Console.WriteLine(missingName);
+                Console.WriteLine(missingNameMessage);
             }
             break;
         
-        case "6":
-            Console.WriteLine(exit_message);
+        case CommandEsc:
+            Console.WriteLine(exitMessage);
             Console.ReadKey();
-            isExite = true;
+            isExit = true;
             break;
         
         default:
