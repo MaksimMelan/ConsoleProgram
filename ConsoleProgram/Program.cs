@@ -16,7 +16,7 @@ string userInput;
 string nameUser = string.Empty;
 string invalidInput = string.Empty;
 string missingNameMessage = "Имя не установлено. Введите имя!";
-string nameReceived = "Имя получено! ";
+string nameReceivedMessage = "Имя получено! ";
 string passwordUser = string.Empty;
 string passwordReceived = "Пароль получен. ";
 string missingPasswordUserMessage = "Пароль не установлен. Устновите пароль.";
@@ -43,7 +43,7 @@ while (isExit == false)
 
             if (userInput != invalidInput)
             {
-                Console.WriteLine(nameReceived);
+                Console.WriteLine(nameReceivedMessage);
             }
             else
             {
@@ -65,19 +65,19 @@ while (isExit == false)
             break;
         
         case CommandWriteName:
-            if (nameUser != invalidInput)//проверка наличия имени
+            if (nameUser != invalidInput)
             {              
-                if (passwordUser != invalidInput)//проверка на наличие пароля
+                if (passwordUser != invalidInput)
                 {
-                    userInput = Console.ReadLine();// ввод пароля
+                    userInput = Console.ReadLine();
 
-                    if (userInput == passwordUser)//пароль верен
+                    if (userInput == passwordUser)
                     {
-                        Console.WriteLine(nameUser);// вывод пароля.
+                        Console.WriteLine(nameUser);
                     }
                     else
                     {
-                        Console.WriteLine(invalidPasswordMessage);// неправильный пароль
+                        Console.WriteLine(invalidPasswordMessage);
                     }
                 }
                 else
